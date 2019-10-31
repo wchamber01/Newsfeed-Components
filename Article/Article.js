@@ -112,3 +112,63 @@ const data = [
   Step 5: Add a new article to the array. Make sure it is in the same format as the others. Refresh the page to see the new article.
 
 */
+
+const articles = document.querySelector('.articles');
+
+data.forEach(arrData => {
+  articles.appendChild(newsFeed(arrData.title, arrData.date, arrData.firstParagraph, arrData.secondParagraph, arrData.thirdParagraph))
+})
+
+function newsFeed(title, date, firstParagraph, secondParagraph, thirdParagraph) {
+
+  //Define NEW elements
+const article = document.createElement('div');
+const articleTitle = document.createElement('h2');
+const articleDate = document.createElement('p');
+const articleP1 = document.createElement('p');
+const articleP2 = document.createElement('p');
+const articleP3 = document.createElement('p');
+const moreButton = document.createElement('span');
+const hideButton = document.createElement('span');
+
+//Setup structure of elements
+article.appendChild(articleTitle);
+article.appendChild(articleDate);
+article.appendChild(articleP1);
+article.appendChild(articleP2);
+article.appendChild(articleP3);
+article.appendChild(moreButton);
+article.appendChild(hideButton);
+
+
+//Set CLASS NAMES
+article.classList.add('article');
+articleDate.classList.add('date');
+moreButton.classList.add('expandButton')
+hideButton.classList.add('collapseButton', 'hide-btn')
+
+//Set text content
+articleTitle.textContent = title;
+articleDate.textContent = date;
+articleP1.textContent = firstParagraph;
+articleP2.textContent = secondParagraph;
+articleP3.textContent = thirdParagraph;
+moreButton.textContent = 'Click HERE to Read Article';
+hideButton.textContent = 'Hide Article';
+
+
+moreButton.addEventListener('click', () => {
+  moreButton.classList.toggle('hide-btn')
+  article.classList.toggle('article-open');
+  hideButton.classList.toggle('hide-btn')
+})
+
+hideButton.addEventListener('click', () => {
+  hideButton.classList.toggle('hide-btn')
+  article.classList.toggle('article-open')
+  moreButton.classList.toggle('hide-btn')
+})
+
+return article
+
+}
